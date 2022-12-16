@@ -2,6 +2,12 @@
   "name": "learn-app",
   "packageManager": "yarn@3.3.0",
   "devDependencies": {
+    "@babel/core": "^7.12.0",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@babel/preset-flow": "^7.18.6",
+    "eslint": "^8.29.0",
+    "eslint-plugin-react": "latest",
     "parcel": "^2.8.1",
     "process": "^0.11.10"
   },

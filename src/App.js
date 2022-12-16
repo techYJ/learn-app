@@ -30,10 +30,11 @@ export default function Form() {
 
     useEffect(() => {
       const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
+      const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
       ctx.font = "48px serif";
       ctx.strokeText("Hello world", 10, 50);
+      ctx.fillRect(0, 0, 100, 100);
     });
 
     return (
