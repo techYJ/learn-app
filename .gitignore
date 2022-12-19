@@ -10,7 +10,7 @@
 #!.yarn/cache
 #.pnp.*
 
-.vscode
+# .vscode
 .parcel-cache
 node_modules/
 dist/
