@@ -1,73 +1,39 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
-export default function Form() {
-  const [answer, setAnswer] = useState('');
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState('typing')
+export default function Accordion() {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  if (status === 'success') {
-    return <h1>That's right!</h1>
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setStatus('submitting');
-    try {
-      await submitForm(answer);
-      setStatus('success');
-    } catch (err) {
-      setStatus('typing');
-      setError(err);
-    }
-  }
-
-  function handleTextareaChange(e) {
-    setAnswer(e.target.value);
-  }
-
-  function Canvas() {
-    const canvasRef = useRef(null);
-
-    useEffect(() => {
-      const canvas = canvasRef.current;
-      const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
-
-      ctx.font = "48px serif";
-      ctx.strokeText("Hello world", 10, 50);
-      ctx.fillRect(0, 0, 100, 100);
-    });
-
-    return (
-      <canvas ref={canvasRef}></canvas>
-    );
-  }
+  const handleShowChange = async () => {
+    setActiveIndex(0);
+    const text = await getData();
+    console.log(text);
+  };
 
   return (
     <>
-      <h2>City quiz</h2>
-      <p>
-        In which city is there a billboard that turns air into drinkable water?
-      </p>
-      <form onSubmit={handleSubmit}>
-        <textarea value={answer} onChange={handleTextareaChange} disabled={status === 'submitting'} />
-        <br />
-        <button disabled={answer.length === 0 || status === 'submitting'}>submit</button>
-      </form>
-      {error !== null && <p style={{ "color": "red" }}>{error.message}</p>}
-      <Canvas height={100} width={100} />
+      <h2>Almaty, Kazakhstan</h2>
+      <Panel title='About' isActive={activeIndex === 0} onShow={handleShowChange}>
+        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+      </Panel>
+      <Panel title='Etymology' isActive={activeIndex === 1} onShow={() => setActiveIndex(1)}>
+        The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+      </Panel>
     </>
   );
 }
 
-function submitForm(answer) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let shoudError = answer.toLowerCase() !== 'lima';
-      if (shoudError) {
-        reject(new Error('Good guess but a wrong answer. Try again!'));
-      } else {
-        resolve();
-      }
-    }, 1500);
-  });
+function Panel({ title, children, isActive, onShow }) {
+  return (
+    <section className="panel">
+      <h3>{title}</h3>
+      {isActive ? <p>{children}</p> : <button onClick={onShow}>Show</button>}
+    </section>
+  );
+}
+
+async function getData() {
+  const request = new Request('http://localhost:8000/greeting?' + new URLSearchParams({name: 'Jun'}));
+  request.method = "GET";
+  const response = await fetch(request);
+  return response.text();
 }
