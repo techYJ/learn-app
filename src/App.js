@@ -34,6 +34,5 @@ function Panel({ title, children, isActive, onShow }) {
 async function getData() {
   const request = new Request('http://localhost:8000/greeting?' + new URLSearchParams({name: 'Jun'}));
   request.method = "GET";
-  const response = await fetch(request);
-  return response.text();
+  return await fetch(request).then(response => response.text());
 }
