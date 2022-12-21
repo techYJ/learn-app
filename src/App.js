@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 export default function Accordion() {
@@ -17,8 +18,7 @@ export default function Accordion() {
       </Panel>
       <Panel title='Etymology' isActive={activeIndex === 1} onShow={() => setActiveIndex(1)}>
         The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
-      </Panel>
-      <p>Test</p>
+      </Panel>·
     </>
   );
 }
@@ -33,7 +33,9 @@ function Panel({ title, children, isActive, onShow }) {
 }
 
 async function getData() {
-  const request = new Request('http://localhost:8000/greeting?' + new URLSearchParams({name: 'Jun'}));
-  request.method = "GET";
-  return await fetch(request).then(response => response.text());
+  return await axios.get('http://localhost:8000/greeting', {
+    params: {
+      name: 'Jun'
+    }
+  }).then(response => response.data);
 }
