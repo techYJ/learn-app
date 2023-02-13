@@ -3,6 +3,7 @@
         "browser": true,
         "es2021": true
     },
+    "parser": "@babel/eslint-parser",
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
@@ -11,10 +12,14 @@
     "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "babelOptions": {
+            "presets": ["@babel/preset-react"]
+        }
     },
     "plugins": [
-        "react"
+        "react",
+        "@babel"
     ],
     "rules": {
         "react/prop-types": "off",

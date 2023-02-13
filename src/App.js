@@ -1,5 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
+import { useRef, useEffect } from "react";
+
+function Canvas() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+
+    ctx.font = "48px serif";
+    ctx.strokeText("Hello world", 10, 50);
+  });
+
+  return (
+    <canvas ref={canvasRef}></canvas>
+  );
+}
 
 export default function Accordion() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -18,7 +35,8 @@ export default function Accordion() {
       </Panel>
       <Panel title='Etymology' isActive={activeIndex === 1} onShow={() => setActiveIndex(1)}>
         The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
-      </Panel>·
+      </Panel>
+      <Canvas />
     </>
   );
 }
