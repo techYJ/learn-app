@@ -5,7 +5,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime"
     ],
     "overrides": [
     ],
@@ -14,9 +15,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "babel"
+        "react"
     ],
     "rules": {
+        "react/prop-types": "off",
+        "react/no-unescaped-entities": "off"
     }
 }
