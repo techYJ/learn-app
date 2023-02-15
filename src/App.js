@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useRef, useEffect } from "react";
 
+import './App.css'
+
 function Canvas() {
   const canvasRef = useRef(null);
 
